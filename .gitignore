@@ -1,0 +1,14 @@
+## Files backup
+**/*.old
+
+# Dependencies
+node_modules
+
+# Data grafana and data influxdb
+grafana/
+influxdb/
+
+# Mosquitto Data
+mosquitto/data
+mosquitto/log
+mosquitto/config/password_file
