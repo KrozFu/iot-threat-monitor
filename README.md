@@ -38,7 +38,7 @@ Esto garantiza que Grafana pueda leer y escribir en su volumen persistente sin p
 
 ```bash
                     ┌────────────────────────┐
-                    │       Laptop / PC      │
+                    │       Server           │
                     │  - Grafana             │
                     │  - SSH al Raspberry Pi │
                     └─────────▲──────────────┘
