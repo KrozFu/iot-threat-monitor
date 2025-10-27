@@ -38,7 +38,43 @@ Esto garantiza que Grafana pueda leer y escribir en su volumen persistente sin p
 
 El módulo de gestión está compuesto por un microcontrolador ESP32 que opera en modo promiscuo, capturando tráfico WiFi del entorno y enviando los datos relevantes al broker MQTT para su posterior análisis por parte de Telegraf e InfluxDB.
 
+1. Captura pasiva de tráfico WiFi
+El ESP32 se configura en modo promiscuo y detecta tramas de gestión (WIFI_PKT_MGMT) emitidas por los dispositivos cercanos.
+
+A partir de estas tramas, extrae:
+
+* Dirección MAC del emisor.
+* Intensidad de señal (RSSI, Received Signal Strength Indicator).
+
+2. Publicación de datos en MQTT
+Los datos capturados se formatean en JSON y se publican en el tópico:
+
+```bash
+iot/esp32/sniffer
+```
+
+Ejemplo de mensaje publicado:
+
+```bash
+{"mac":"AA:BB:CC:DD:EE:FF","rssi":-67}
+```
+
+Además, el microcontrolador envía un mensaje de estado cada 30 segundos para indicar que sigue activo:
+
+```bash
+{"status":"alive"}
+```
+
+3. Gestión de reconexiones
+El dispositivo gestiona automáticamente la reconexión tanto a la red WiFi como al broker MQTT en caso de pérdida de conexión.
+
+4. Integración con el stack de monitoreo
+
+Telegraf se suscribe al tópico `iot/esp32/sniffer` para almacenar los valores en InfluxDB, permitiendo su visualización y análisis en tiempo real desde Grafana.
+
 ## Arquitectura
+
+Diagrama de arquitectura
 
 ```bash
                     ┌────────────────────────┐
@@ -64,4 +100,22 @@ El módulo de gestión está compuesto por un microcontrolador ESP32 que opera e
                                      │     TTGO T-Beam ESP32      │
                                      │ - Sniffer modo promiscuo   │
                                      └────────────────────────────┘
+```
+
+Comunicacion de las fuentes
+
+```bash
+[Dispositivos IoT] 
+       │
+       ▼
+ [Tráfico WiFi detectado]
+       │
+       ▼
+ [ESP32 Sniffer (modo promiscuo)]
+       │
+       ▼
+ Publica en → MQTT (iot/esp32/sniffer)
+       │
+       ▼
+ [Telegraf → InfluxDB → Grafana]
 ```
