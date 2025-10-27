@@ -34,11 +34,15 @@ sudo chown -R 472:472 ./grafana
 
 Esto garantiza que Grafana pueda leer y escribir en su volumen persistente sin problemas.
 
+## Módulo de gestión de señales (ESP32 Sniffer)
+
+El módulo de gestión está compuesto por un microcontrolador ESP32 que opera en modo promiscuo, capturando tráfico WiFi del entorno y enviando los datos relevantes al broker MQTT para su posterior análisis por parte de Telegraf e InfluxDB.
+
 ## Arquitectura
 
 ```bash
                     ┌────────────────────────┐
-                    │       Server           │
+                    │        Server          │
                     │  - Grafana             │
                     │  - SSH al Raspberry Pi │
                     └─────────▲──────────────┘
