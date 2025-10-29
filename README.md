@@ -1,10 +1,13 @@
 # IoT Threat Monitor
 
-**IoT Threat Monitor** es un proyecto de carácter experimental enfocado en el diseño, implementación y validación de un prototipo automatizado para la detección de amenazas en entornos domóticos. Se basa en el análisis pasivo del tráfico de red y el monitoreo en tiempo real de dispositivos IoT, con el objetivo de identificar vulnerabilidades, configuraciones inseguras y comportamientos anómalos.
+**IoT Threat Monitor** es un proyecto de carácter experimental enfocado en el diseño, implementación y validación de un prototipo automatizado para la detección de amenazas en entornos domóticos.
+El sistema se basa en el análisis pasivo del tráfico de red y el monitoreo en tiempo real de dispositivos IoT, con el objetivo de identificar vulnerabilidades, configuraciones inseguras y comportamientos anómalos.
 
 ## Configuración básica de Mosquitto y Telegraf
 
-Para establecer autenticación entre el microcontrolador (ESP32) y Mosquitto, así como entre Telegraf y el broker MQTT, es necesario definir usuarios y contraseñas. Algunas credenciales vienen configuradas por defecto, pero se recomienda modificarlas para mejorar la seguridad.
+Para establecer autenticación entre el microcontrolador (ESP32) y Mosquitto, así como entre Telegraf y el broker MQTT, es necesario definir usuarios y contraseñas.
+
+Algunos valores vienen configurados por defecto, pero se recomienda modificarlos para aumentar la seguridad del sistema.
 
 ### Crear usuario para el ESP32
 
